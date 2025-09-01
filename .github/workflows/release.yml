@@ -15,8 +15,17 @@ jobs:
     uses: stellar-expert/soroban-build-workflow/.github/workflows/release.yml@v22.8.1
     with:
       release_name: ${{ github.ref_name }}
-      release_description: RedStone Stellar Adapter
+      release_description: RedStone Stellar Adapter ${{ github.ref_name }}
       make_target: setup-env
       package: redstone-adapter
+    secrets:
+      release_token: ${{ secrets.GITHUB_TOKEN }}
+  price-feed:
+    uses: stellar-expert/soroban-build-workflow/.github/workflows/release.yml@v22.8.1
+    with:
+      release_name: ${{ github.ref_name }}
+      release_description: RedStone Stellar Price Feed ${{ github.ref_name }}
+      make_target: setup-env
+      package: price-feed
     secrets:
       release_token: ${{ secrets.GITHUB_TOKEN }}
