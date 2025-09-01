@@ -159,6 +159,10 @@ impl Contract {
     pub fn unique_signer_threshold(_: &Env) -> u64 {
         STELLAR_CONFIG.signer_count_threshold as u64
     }
+
+    pub fn version(_: &Env) -> u64 {
+        0
+    }
 }
 
 fn get_prices_from_payload(
