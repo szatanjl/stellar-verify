@@ -6,6 +6,7 @@ FEED_IDS="$(FEED_ID)", "ETH"
 
 WASM_TARGET=wasm32v1-none
 CONTRACT=redstone_adapter
+PRICE_FEED_CONTRACT=price_feed
 NIGHTLY=nightly-2025-04-29
 
 NETWORK=testnet
@@ -45,7 +46,13 @@ account:
 	stellar keys generate --global $(ACCOUNT) --network $(NETWORK) --fund
 
 build: setup-env
-	stellar contract build
+	stellar contract build --meta 'source_repo=szatanjl/stellar-verify'
+	stellar contract optimize \
+		--wasm target/$(WASM_TARGET)/release/$(CONTRACT).wasm \
+		--wasm-out target/$(WASM_TARGET)/release/$(CONTRACT).wasm
+	stellar contract optimize \
+		--wasm target/$(WASM_TARGET)/release/$(PRICE_FEED_CONTRACT).wasm \
+		--wasm-out target/$(WASM_TARGET)/release/$(PRICE_FEED_CONTRACT).wasm
 
 deploy: build
 	adapter_id=`stellar contract deploy \
