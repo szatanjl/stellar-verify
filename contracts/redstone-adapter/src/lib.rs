@@ -161,7 +161,7 @@ impl Contract {
     }
 
     pub fn version(_: &Env) -> u64 {
-        1
+        10
     }
 }
 
